@@ -29,7 +29,7 @@ dvc run -w ..\
 dvc run -w ..\
   -d data/processed/gtr_train.csv\
   -o models/gtr_forest.pkl\
-  python gateway_to_cookies/models/predict_model.py
+  python gateway_to_cookies/models/train_model.py
 
 # Evaluate model
 touch ../models/metrics.txt

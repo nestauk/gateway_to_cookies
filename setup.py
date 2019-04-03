@@ -4,7 +4,7 @@ setup(
     name='gateway_to_cookies',
     packages=find_packages(),
     version='0.1.0',
-    description='An example analysis conforming to Nesta's cookiecutter for data science',
+    description='An example analysis conforming to Nestas cookiecutter for data science',
     author='Nesta UK',
     license='MIT',
 )

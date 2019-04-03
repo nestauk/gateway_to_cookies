@@ -1,5 +1,5 @@
 from pandas import read_csv
-from src.features.text_preprocessing import tokenize_document
+from gateway_to_cookies.features.text_preprocessing import tokenize_document
 
 
 def make_gtr(data_dir, nrows=None):

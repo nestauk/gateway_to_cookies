@@ -3,7 +3,7 @@ import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
-from src.data.gtr import make_gtr
+from gateway_to_cookies.data.gtr import make_gtr
 
 
 @click.command()

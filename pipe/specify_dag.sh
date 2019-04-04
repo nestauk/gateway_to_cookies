@@ -8,7 +8,7 @@ dvc run -w ..\
   -d gateway_to_cookies/features/text_preprocessing.py\
   -d gateway_to_cookies/data/make_dataset.py\
   -o data/processed/gtr_tokenised.csv\
-  python gateway_to_cookies/data/make_dataset.py -n 10
+  python gateway_to_cookies/data/make_dataset.py
 
 git add ../data/processed/.gitignore gtr_tokenised.csv.dvc
 

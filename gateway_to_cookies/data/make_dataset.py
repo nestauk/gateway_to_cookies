@@ -7,13 +7,13 @@ from gateway_to_cookies.data.gtr import make_gtr
 
 
 @click.command()
-@click.option('--nrows', '-n', default=None, type=int)
+@click.option('--nrows', '-n', default=1000, type=int)
 def main(nrows):
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
 
     Args:
-        nrows (int, optional): Number of rows of dataset to make. Defaults to None.
+        nrows (int, optional): Number of rows of dataset to make. Defaults to 1000.
     """
     logger = logging.getLogger(__name__)
 

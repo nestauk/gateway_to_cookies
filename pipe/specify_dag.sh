@@ -37,5 +37,5 @@ dvc run -w ..\
   -d data/processed/gtr_test.csv\
   -d models/gtr_forest.pkl\
   -M models/metrics.txt\
-  -f Dvcfile
+  -f Dvcfile\
   python gateway_to_cookies/models/evaluate.py

@@ -53,6 +53,7 @@ endif
 all: 
 	make create_environment
 	$(call execute_in_env, make requirements)
+	make sync_data_from_s3
 	$(call execute_in_env, make pipeline)
 
 ## Install Python Dependencies

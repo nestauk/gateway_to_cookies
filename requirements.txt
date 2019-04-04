@@ -5,6 +5,9 @@ matplotlib
 jupyter
 ipython
 
+nltk
+gensim
+
 # local package
 -e .
 

@@ -31,7 +31,7 @@ dvc run -w ..\
 # Train model
 dvc run -w ..\
   -d data/processed/gtr_train.csv\
-  -d gateway_to_cookies/models/predict_model.py\
+  -d gateway_to_cookies/models/train_model.py\
   -o models/gtr_forest.pkl\
   python gateway_to_cookies/models/train_model.py
 

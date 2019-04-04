@@ -7,6 +7,8 @@ ipython
 
 nltk
 gensim
+joblib
+scikit-learn
 
 # local package
 -e .

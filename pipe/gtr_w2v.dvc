@@ -1,0 +1,21 @@
+cmd: python gateway_to_cookies/features/build_features.py
+deps:
+- md5: 1fc4cf456d9e84d0206aef3d20e2d625
+  path: data/processed/gtr_tokenised.csv
+- md5: fd8d750ff0e63404176aba17cfdcb22a
+  path: gateway_to_cookies/features/w2v.py
+- md5: e4c70ad38163c1b4551748c978226ed9
+  path: gateway_to_cookies/features/build_features.py
+md5: 8f8961d750a454e97b87b1cc91a36643
+outs:
+- cache: true
+  md5: d1783627f80de10327fcdbf69e4efdcc
+  metric: false
+  path: models/gtr_w2v
+  persist: false
+- cache: true
+  md5: 1c08f5da9fa10da312364150daca9811
+  metric: false
+  path: data/processed/gtr_embedding.csv
+  persist: false
+wdir: ..

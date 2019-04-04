@@ -1,0 +1,4 @@
+['remote "myremote"']
+url = s3://nesta-dvc-test
+[core]
+remote = myremote

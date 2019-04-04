@@ -6,7 +6,7 @@ from pathlib import Path
 
 import ast
 from pandas import read_csv, DataFrame
-from src.features.w2v import train_w2v, document_vector
+from gateway_to_cookies.features.w2v import train_w2v, document_vector
 
 
 @click.command()

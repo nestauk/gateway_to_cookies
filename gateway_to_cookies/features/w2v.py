@@ -10,8 +10,9 @@ def train_w2v(docs):
     Returns:
         gensim.models.Word2Vec
     """
+
     w2v = gensim.models.Word2Vec(
-            docs, size=50, window=10, min_count=2, iter=20)
+            docs, size=50, window=10, min_count=2, iter=20, workers=1, seed=0)
 
     return w2v
 

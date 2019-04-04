@@ -26,7 +26,7 @@ def main():
     w2v = train_w2v(docs)
     w2v_out = f"{project_dir}/models/gtr_w2v"
     logger.info(f'saving gateway to research word embeddings to {w2v_out}')
-    w2v.save(w2v_out)
+    w2v.wv.save(w2v_out)
 
     logger.info('making gateway to research document vectors')
     doc_vecs = (DataFrame([document_vector(w2v, doc) for doc in docs],

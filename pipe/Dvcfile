@@ -1,0 +1,16 @@
+cmd: python gateway_to_cookies/models/evaluate.py
+deps:
+- md5: fb0aab0f6d6102263f32eb56d4ffdbb6
+  path: data/processed/gtr_test.csv
+- md5: 5db8a4cc12c7bf444d0ac06e0305a2d4
+  path: models/gtr_forest.pkl
+- md5: d9517da9f6e6578c7523750e8fb37d61
+  path: gateway_to_cookies/models/evaluate.py
+md5: 754ef3e7c8ca24e0051fb63ba84b5fdc
+outs:
+- cache: false
+  md5: c28654d1dc3b4cbead66c086935db89a
+  metric: true
+  path: models/metrics.txt
+  persist: false
+wdir: ..

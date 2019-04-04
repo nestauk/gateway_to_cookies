@@ -1,0 +1,16 @@
+cmd: python gateway_to_cookies/data/make_dataset.py
+deps:
+- md5: 56640d8487a9d26114a2fdb9e9aa1c83
+  path: data/raw/gtr_projects.csv
+- md5: fb37268b1d9bb673f451283c344dfd90
+  path: gateway_to_cookies/features/text_preprocessing.py
+- md5: 6e8f84caa80fedbb82d776de35d3ccdf
+  path: gateway_to_cookies/data/make_dataset.py
+md5: 3aa070cf5fb56efd368a4cb0b76807e5
+outs:
+- cache: true
+  md5: 3dc0c7bc907a65813e5e8914b4d98f99
+  metric: false
+  path: data/processed/gtr_tokenised.csv
+  persist: false
+wdir: ..

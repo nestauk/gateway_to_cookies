@@ -2,6 +2,8 @@
 
 set -e
 
+export PYTHONHASHSEED=0
+
 # Clean and tokenise
 dvc run -w ..\
   -d data/raw/gtr_projects.csv\

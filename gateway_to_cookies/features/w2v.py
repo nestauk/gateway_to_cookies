@@ -1,3 +1,4 @@
+import os
 import logging
 import gensim
 import numpy as np
@@ -12,6 +13,12 @@ def train_w2v(docs):
     Returns:
         gensim.models.Word2Vec
     """
+
+    if 'PYTHONHASHSEED' in os.environ.keys():
+        PYTHONHASHSEED = os.environ['PYTHONHASHSEED']
+        logger.info(f'Using environment variable PYTHONHASHSEED={PYTHONHASHSEED}')
+    else:
+        logger.warning(f'No environment variable PYTHONHASHSEED - results not reproducible')
 
     w2v = gensim.models.Word2Vec(
             docs, size=50, window=10, min_count=2, iter=20, workers=1, seed=0)

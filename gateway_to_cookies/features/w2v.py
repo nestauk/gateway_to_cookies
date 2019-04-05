@@ -1,6 +1,8 @@
+import logging
 import gensim
 import numpy as np
 
+logger = logging.getLogger(__name__)
 
 def train_w2v(docs):
     """Train Word2Vec model

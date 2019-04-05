@@ -7,6 +7,7 @@ import pandas as pd
 import joblib
 from sklearn.metrics import accuracy_score
 
+logger = logging.getLogger(__name__)
 
 @click.command()
 @click.option('--random_state', type=int, default=0)
@@ -26,8 +27,6 @@ def main(random_state, target):
             The Gateway to Research column   by `np.random`. Defaults to 0.
     """
 
-    logger = logging.getLogger(__name__)
-
     Xy = pd.read_csv(f"{project_dir}/data/processed/gtr_test.csv", index_col=0)
     logger.info(f"Loaded test data")
     X, y = Xy.drop(target, 1), Xy[target]
@@ -45,9 +44,6 @@ def main(random_state, target):
 
 
 if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
-
     # Define project base directory
     project_dir = Path(__file__).resolve().parents[2]
 

@@ -6,6 +6,7 @@ from pathlib import Path
 from pandas import read_csv
 from sklearn.model_selection import train_test_split
 
+logger = logging.getLogger(__name__)
 
 @click.command()
 @click.option('--train_size', type=float, default=None)
@@ -42,7 +43,6 @@ def main(train_size, test_size, target, random_state):
             The Gateway to Research column name to use as a target
 
     """
-    logger = logging.getLogger(__name__)
 
     logger.info('load gateway to research data')
     Xy = (read_csv(f"{project_dir}/data/processed/gtr_tokenised.csv", usecols=[target])
@@ -51,7 +51,7 @@ def main(train_size, test_size, target, random_state):
 
     msg = (f'Building train-test split ({train_size}, {test_size}) '
            f'with target `{target}` using seed: {random_state}')
-    logging.info(msg)
+    logger.info(msg)
 
     X_train, X_test, y_train, y_test = train_test_split(
             Xy.drop(target, 1), Xy[target],
@@ -64,17 +64,14 @@ def main(train_size, test_size, target, random_state):
 
     X_train.join(y_train).to_csv(train_fout)
     msg = f'Saving training set to {train_fout}'
-    logging.info(msg)
+    logger.info(msg)
 
     X_test.join(y_test).to_csv(test_fout)
     msg = f'Saving test set to {test_fout}'
-    logging.info(msg)
+    logger.info(msg)
 
 
 if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
-
     # Define project base directory
     project_dir = Path(__file__).resolve().parents[2]
 

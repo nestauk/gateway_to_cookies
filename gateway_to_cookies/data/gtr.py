@@ -1,6 +1,8 @@
+import logging
 from pandas import read_csv
 from gateway_to_cookies.features.text_preprocessing import tokenize_document
 
+logger = logging.getLogger(__name__)
 
 def make_gtr(data_dir, nrows=None):
     """Clean and tokenise gateway to research abstract texts
@@ -12,11 +14,14 @@ def make_gtr(data_dir, nrows=None):
 
     """
 
+    logger.info(f'making gateway to research data set from raw data ({nrows} rows)')
+    fout = f"{data_dir}/processed/gtr_tokenised.csv"
     (read_csv(f"{data_dir}/raw/gtr_projects.csv", nrows=nrows)
      .pipe(clean_gtr)
      .pipe(transform_gtr)
-     .to_csv(f"{data_dir}/processed/gtr_tokenised.csv")
+     .to_csv(fout)
      )
+    logger.info(f'Produced gateway to research data: {fout}')
 
 
 def clean_gtr(gtr_df):

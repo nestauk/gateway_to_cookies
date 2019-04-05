@@ -1,9 +1,13 @@
+import logging
 import re
 import nltk
 import string
 import gensim
 from nltk.corpus import stopwords
 from itertools import chain
+
+logger = logging.getLogger(__name__)
+
 nltk.download('stopwords')
 nltk.download('punkt')
 

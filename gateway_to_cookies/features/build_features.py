@@ -8,13 +8,13 @@ import ast
 from pandas import read_csv, DataFrame
 from gateway_to_cookies.features.w2v import train_w2v, document_vector
 
+logger = logging.getLogger(__name__)
 
 @click.command()
 def main():
     """ Runs data processing scripts to turn cleaned data from (../processed) into
         features ready to train models (saved in ../processed).
     """
-    logger = logging.getLogger(__name__)
 
     logger.info('load gateway to research data')
     docs = (read_csv(f"{project_dir}/data/processed/gtr_tokenised.csv",
@@ -40,9 +40,6 @@ def main():
 
 
 if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
-
     # Define project base directory
     project_dir = Path(__file__).resolve().parents[2]
 

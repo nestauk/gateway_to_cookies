@@ -1,4 +1,4 @@
 ['remote "myremote"']
-url = s3://nesta-dvc-test
+url = s3://nesta-dvc-test/gtr-cc/dvc/
 [core]
 remote = myremote

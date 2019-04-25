@@ -1,11 +1,12 @@
 #!/bin/bash
 
-set -e
+set -e  # Exit immediately on error
 
 export PYTHONHASHSEED=0
 
 # Clean and tokenise
 dvc run -w ..\
+  -d model_config.yaml\
   -d data/raw/gtr_projects.csv\
   -d gateway_to_cookies/features/text_preprocessing.py\
   -d gateway_to_cookies/data/make_dataset.py\
@@ -16,6 +17,7 @@ git add ../data/processed/.gitignore gtr_tokenised.csv.dvc
 
 # Train word embeddings
 dvc run -w .. \
+  -d model_config.yaml\
   -d data/processed/gtr_tokenised.csv\
   -d gateway_to_cookies/features/w2v.py\
   -d gateway_to_cookies/features/build_features.py\
@@ -27,6 +29,7 @@ git add ../models/.gitignore ../data/processed/.gitignore gtr_w2v.dvc
 
 # Test-train split
 dvc run -w ..\
+  -d model_config.yaml\
   -d data/processed/gtr_embedding.csv\
   -d data/processed/gtr_tokenised.csv\
   -d gateway_to_cookies/models/train_test_split.py\
@@ -39,6 +42,7 @@ git add ../data/processed/.gitignore gtr_train.csv.dvc
 
 # Train model
 dvc run -w ..\
+  -d model_config.yaml\
   -d data/processed/gtr_train.csv\
   -d gateway_to_cookies/models/train_model.py\
   -o models/gtr_forest.pkl\
@@ -49,6 +53,7 @@ git add ../models/.gitignore gtr_forest.pkl.dvc
 # Evaluate model
 touch ../models/metrics.txt
 dvc run -w ..\
+  -d model_config.yaml\
   -d data/processed/gtr_test.csv\
   -d models/gtr_forest.pkl\
   -d gateway_to_cookies/models/evaluate.py\

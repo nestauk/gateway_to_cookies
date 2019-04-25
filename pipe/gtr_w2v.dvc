@@ -1,20 +1,22 @@
 cmd: python gateway_to_cookies/features/build_features.py
 deps:
-- md5: 3dc0c7bc907a65813e5e8914b4d98f99
+- md5: d1081ebb150693ea57bb9536539b788d
+  path: model_config.yaml
+- md5: 8c8df2d463e6e84fb1417c8e9ab682be
   path: data/processed/gtr_tokenised.csv
-- md5: fd8d750ff0e63404176aba17cfdcb22a
+- md5: 97c02130bc9bd7a1429f31044b4d28d0
   path: gateway_to_cookies/features/w2v.py
-- md5: e4c70ad38163c1b4551748c978226ed9
+- md5: 1527c5b9a7c7d2674005e7a05650f770
   path: gateway_to_cookies/features/build_features.py
-md5: fa6b938efb3a2d4f47820f51035e337e
+md5: 95dac31e05594543cbd4390f22861077
 outs:
 - cache: true
-  md5: c887b30e6332cc46d37a0797e869c447
+  md5: 54b11049467879c25078ed6e21cd568e
   metric: false
   path: models/gtr_w2v
   persist: false
 - cache: true
-  md5: 2638ffe0ba0b9648f885e044a234ce8a
+  md5: 3461fd8051baf3a41d4315f84a0ccbac
   metric: false
   path: data/processed/gtr_embedding.csv
   persist: false

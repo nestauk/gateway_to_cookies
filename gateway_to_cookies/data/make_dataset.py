@@ -1,32 +1,30 @@
-# -*- coding: utf-8 -*-
-import click
 import logging
+import yaml
 from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
 from gateway_to_cookies.data.gtr import make_gtr
 
 logger = logging.getLogger(__name__)
 
-@click.command()
-@click.option('--nrows', '-n', default=1000, type=int)
-def main(nrows):
+
+def main():
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
-
-    Args:
-        nrows (int, optional): Number of rows of dataset to make. Defaults to 1000.
     """
-    logger.info('Making datasets...')
-    make_gtr(project_dir / 'data', nrows)
+    with open(project_dir / 'model_config.yaml', 'rt') as f:
+        config = yaml.safe_load(f.read())['data']
+    logger.info(f'Loaded data parameters: {config}')
+
+    logger.info('Making gtr...')
+    make_gtr(project_dir / 'data', config['gtr']['usecols'],
+             config['gtr']['nrows'], config['gtr']['min_length'])
 
 
 if __name__ == '__main__':
     # Define project base directory
     project_dir = Path(__file__).resolve().parents[2]
 
-    # find .env automagically by walking up directories until it's found, then
-    # load up the .env entries as environment variables
-    # NOTE: not used in this stub but often useful
-    load_dotenv(find_dotenv())
-
-    main()
+    try:
+        main()
+    except (Exception, KeyboardInterrupt) as e:
+        logger.exception(e, stack_info=True)
+        raise e

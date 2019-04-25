@@ -5,10 +5,17 @@ import numpy as np
 
 logger = logging.getLogger(__name__)
 
-def train_w2v(docs):
+
+def train_w2v(docs, **kwargs):
     """Train Word2Vec model
 
+    Thin wrapper around gensim.models.Word2Vec that checks
+    reproducibility due to `workers` arguement and
+    `PYTHONHASHSEED` environment variable.
+
     Args:
+        docs (list): List of list of tokens to train model
+        **kwargs: Arguments to be passed to gensim.models.Word2Vec
 
     Returns:
         gensim.models.Word2Vec
@@ -16,12 +23,17 @@ def train_w2v(docs):
 
     if 'PYTHONHASHSEED' in os.environ.keys():
         PYTHONHASHSEED = os.environ['PYTHONHASHSEED']
-        logger.info(f'Using environment variable PYTHONHASHSEED={PYTHONHASHSEED}')
+        msg = f'Using env var PYTHONHASHSEED={PYTHONHASHSEED}'
+        logger.info(msg)
     else:
-        logger.warning(f'No environment variable PYTHONHASHSEED - results not reproducible')
+        msg = f'No env var PYTHONHASHSEED - results not reproducible'
+        logger.warning(msg)
 
-    w2v = gensim.models.Word2Vec(
-            docs, size=50, window=10, min_count=2, iter=20, workers=1, seed=0)
+    if 'workers' in kwargs.keys() and kwargs['workers'] != 1:
+        msg = f'Workers is not equal to one - results not reproducible'
+        logger.warning(msg)
+
+    w2v = gensim.models.Word2Vec(sentences=docs, **kwargs)
 
     return w2v
 
@@ -43,7 +55,8 @@ def document_vector(word2vec_model, doc):
     """
     # remove out-of-vocabulary words
     doc = [word for word in doc if word in word2vec_model.wv.vocab]
-    if doc:
+
+    if len(doc) > 0:
         return np.mean(word2vec_model[doc], axis=0)
     else:
         return np.zeros(word2vec_model.trainables.layer1_size,)

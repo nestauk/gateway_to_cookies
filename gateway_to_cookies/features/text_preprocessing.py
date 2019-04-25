@@ -2,7 +2,6 @@ import logging
 import re
 import nltk
 import string
-import gensim
 from nltk.corpus import stopwords
 from itertools import chain
 
@@ -32,79 +31,47 @@ tokens_re = re.compile(r'(' + '|'.join(regex_str) + ')',
                        re.VERBOSE | re.IGNORECASE)
 
 
-def tokenize_document(text, flatten=False):
+def tokenize_document(text, min_length=3, flatten=False):
     """Preprocess a whole raw document.
 
     Args:
         text (str): Raw string of text.
+        min_length (int, optional): Minimum token length
         flatten (bool): Whether to flatten out sentences
 
-    Return:
+    Returns:
         List: preprocessed and tokenized documents
 
     #UTILS
     """
-
+    text = [clean_and_tokenize(sentence, min_length)
+            for sentence in nltk.sent_tokenize(text)]
     if flatten:
-        return list(chain(*[clean_and_tokenize(sentence)
-                            for sentence in nltk.sent_tokenize(text)]))
+        return list(chain(*text))
     else:
-        return [clean_and_tokenize(sentence)
-                for sentence in nltk.sent_tokenize(text)]
+        return text
 
 
-def clean_and_tokenize(text):
+def clean_and_tokenize(text, min_length):
     """Preprocess a raw string/sentence of text.
 
     Args:
-       text (str): Raw string of text.
+        text (str): Raw string of text.
+        min_length (int): Minimum token length
 
-    Return:
-       list of str: Preprocessed tokens.
+    Returns:
+        list of str: Preprocessed tokens.
 
     #UTILS
     """
 
+    # Find tokens and lowercase
     tokens = tokens_re.findall(text)
     _tokens = [t.lower() for t in tokens]
+    # Remove short tokens, stop words, tokens with digits, non-ascii chars
     filtered_tokens = [token.replace('-', '_') for token in _tokens
-                       if len(token) > 2
+                       if len(token) >= min_length
                        and token not in stop_words
                        and not any(x in token for x in string.digits)
                        and any(x in token for x in string.ascii_lowercase)]
     return filtered_tokens
-
-
-def build_ngrams(documents, n=2, **kwargs):
-    """Create ngrams using Gensim's phrases.
-
-    Args:
-        documents (list of token lists): List of preprocessed and
-                                                tokenized documents
-        n (int): The `n` in n-gram.
-
-    Return:
-        List: bigrams
-
-    #UTILS
-    """
-    # Check whether "level" was passed as an argument
-    if "level" not in kwargs:
-        level = 2
-    else:
-        level = kwargs["level"]
-
-    def _build_ngrams(documents, n, level):
-        """ Create ngrams using Gensim's phrases for a given level """
-        phrases = gensim.models.Phrases(documents,  min_count=2, threshold=1, delimiter=b'_')
-        bigram = gensim.models.phrases.Phraser(phrases)
-        docs_bi = [bigram[doc] for doc in documents]
-
-        if level == n:  # If finished
-            return docs_bi
-        else:  # Otherwise, keep processing until n-grams satisfied
-            return build_ngrams(docs_bi, n=n, level=level+1)
-
-    docs_bi = _build_ngrams(documents, n, level)
-
-    return docs_bi

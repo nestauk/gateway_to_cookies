@@ -1,0 +1,35 @@
+target: &target  'funder_name' # Variable to predict
+
+data:  # make_dataset.py
+  gtr:
+    usecols: ['project_id', 'abstract_texts', *target]
+    nrows: 1000  # Number of rows of dataset to build
+    min_length: 2  # Minimum token length
+
+features:  # build_features.py
+  w2v:  
+  # Passed to gensim.models.Word2Vec
+  # See: https://radimrehurek.com/gensim/models/word2vec.html
+    workers: 1
+    size: 50 
+    window: 10  
+    min_count: 2
+    iter: 20
+    seed: 1
+
+
+split:  # train_test_split.py
+  split:
+    random_state: 0
+    shuffle: True
+    train_size: 0.8
+  target: *target
+
+model:  # train_model.py
+  target: *target
+  hyperparameters:
+    random_state: 0
+    n_estimators: 100
+
+evaluate:  # evaluate.py
+  target: *target

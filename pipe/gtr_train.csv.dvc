@@ -1,20 +1,22 @@
 cmd: python gateway_to_cookies/models/train_test_split.py
 deps:
-- md5: 2638ffe0ba0b9648f885e044a234ce8a
+- md5: d1081ebb150693ea57bb9536539b788d
+  path: model_config.yaml
+- md5: 3461fd8051baf3a41d4315f84a0ccbac
   path: data/processed/gtr_embedding.csv
-- md5: 3dc0c7bc907a65813e5e8914b4d98f99
+- md5: 8c8df2d463e6e84fb1417c8e9ab682be
   path: data/processed/gtr_tokenised.csv
-- md5: 2690bc131bcbb642ecd3d86bea8332f1
+- md5: 41e3f902054a75cc4b2e3123aa4fe8f6
   path: gateway_to_cookies/models/train_test_split.py
-md5: 51d528f1c3378ae0924c86c6732ff2b6
+md5: 37305571e44dfdcc06df5ca7bacd0090
 outs:
 - cache: true
-  md5: d22930a664a17e0cf007da5eb1d9dd0a
+  md5: e6a62bd318cc77de1d02ae4990f875dc
   metric: false
   path: data/processed/gtr_train.csv
   persist: false
 - cache: true
-  md5: fb0aab0f6d6102263f32eb56d4ffdbb6
+  md5: f83d25e404b155fc02ea10bd4a0eea2c
   metric: false
   path: data/processed/gtr_test.csv
   persist: false
